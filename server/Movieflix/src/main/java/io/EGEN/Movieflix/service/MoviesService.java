@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import io.EGEN.Movieflix.entity.ImdbProfile;
+import io.EGEN.Movieflix.entity.MovieDetails;
 import io.EGEN.Movieflix.entity.Movies;
+import io.EGEN.Movieflix.entity.User;
 
-@Service
+
 public interface MoviesService {
 	
 	 public List<Movies> findAll();
@@ -27,7 +30,9 @@ public interface MoviesService {
 	//sort movies by IMDB votes
 	 public List<Movies> imdbVotes();
 	 //update rating when user rates a movie
-	 public double updateUserRating(String movieID);
+	 public double updateUserRating(Movies movie,double rating);
+	 
+	 public String updateComment(Movies movie,String comment,User user);
 	 //Search a movie by title
 	 public Movies findOne(String title);
 	 //post a movie 

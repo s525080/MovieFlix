@@ -18,7 +18,7 @@ public class MovieDetails {
 	@GeneratedValue(generator="customUUID")
 	private String id;
 	private String rated;
-	private LocalDate released;
+	private String released;
 	private String runtime;
 	private String director;
 	private String writer;
@@ -41,10 +41,10 @@ public class MovieDetails {
 	public void setRated(String rated) {
 		this.rated = rated;
 	}
-	public LocalDate getReleased() {
+	public String getReleased() {
 		return released;
 	}
-	public void setReleased(LocalDate released) {
+	public void setReleased(String released) {
 		this.released = released;
 	}
 	public String getRuntime() {

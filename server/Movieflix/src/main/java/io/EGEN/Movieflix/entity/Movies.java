@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -14,6 +17,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table
+@NamedQueries({
+		@NamedQuery(name="Movies.findAll",query="SELECT m from Movies m "),
+		@NamedQuery(name="Movies.findOnlyMovies",query="SELECT m from Movies m where m.type=:pmovies")
+})
 public class Movies {
 	
 	@Id
@@ -30,7 +37,7 @@ public class Movies {
 	private ImdbProfile imdbProfile;
 	@OneToOne
 	private UserRatings userRatings;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<UserComments> userComments;
 	public String getId() {
 		return id;

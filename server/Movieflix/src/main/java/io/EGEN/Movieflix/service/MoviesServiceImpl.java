@@ -2,20 +2,32 @@ package io.EGEN.Movieflix.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import io.EGEN.Movieflix.entity.ImdbProfile;
+import io.EGEN.Movieflix.entity.MovieDetails;
 import io.EGEN.Movieflix.entity.Movies;
+import io.EGEN.Movieflix.entity.User;
+import io.EGEN.Movieflix.repository.MoviesRepository;
 
+@Service
 public class MoviesServiceImpl implements MoviesService {
-
+    
+	@Autowired
+	MoviesRepository repository;
+	
 	@Override
 	public List<Movies> findAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findAll();
 	}
 
 	@Override
 	public List<Movies> findOnlyMovies() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findOnlyMovies();
 	}
 
 	@Override
@@ -61,9 +73,15 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 
 	@Override
-	public double updateUserRating(String movieID) {
+	public double updateUserRating(Movies movie, double rating) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public String updateComment(Movies movie, String comment, User user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -73,9 +91,10 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 
 	@Override
+	@Transactional
 	public Movies createMovie(Movies movie) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.createMovie(movie);
 	}
 
 	@Override
@@ -90,4 +109,5 @@ public class MoviesServiceImpl implements MoviesService {
 		
 	}
 
+	
 }
