@@ -19,7 +19,7 @@ public class ImdbProfile {
 	private double imdbRating;
 	private int imdbVotes;
 	
-	@Id
+	
 	private String imdbId;
 	
 	

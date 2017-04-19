@@ -2,9 +2,11 @@ package io.EGEN.Movieflix.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import io.EGEN.Movieflix.entity.Movies;
 
-
+@Service
 public interface MoviesService {
 	
 	 public List<Movies> findAll();

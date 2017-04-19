@@ -2,8 +2,11 @@ package io.EGEN.Movieflix.repository;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import io.EGEN.Movieflix.entity.Movies;
 
+@Repository
 public interface MoviesRepository {
 	
 	public List<Movies> findAll();

@@ -1,11 +1,11 @@
 package io.EGEN.Movieflix.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -28,10 +28,10 @@ public class Movies {
 	private MovieDetails movieDetails;
 	@OneToOne
 	private ImdbProfile imdbProfile;
-	@OneToMany
+	@OneToOne
 	private UserRatings userRatings;
 	@OneToMany
-	private UserComments userComments;
+	private List<UserComments> userComments;
 	public String getId() {
 		return id;
 	}
@@ -74,16 +74,17 @@ public class Movies {
 	public void setImdbProfile(ImdbProfile imdbProfile) {
 		this.imdbProfile = imdbProfile;
 	}
+    
 	public UserRatings getUserRatings() {
 		return userRatings;
 	}
 	public void setUserRatings(UserRatings userRatings) {
 		this.userRatings = userRatings;
 	}
-	public UserComments getUserComments() {
+	public List<UserComments> getUserComments() {
 		return userComments;
 	}
-	public void setUserComments(UserComments userComments) {
+	public void setUserComments(List<UserComments> userComments) {
 		this.userComments = userComments;
 	}
 	@Override
@@ -92,7 +93,7 @@ public class Movies {
 				+ ", movieDetails=" + movieDetails + ", imdbProfile=" + imdbProfile + ", userRatings=" + userRatings
 				+ ", userComments=" + userComments + "]";
 	}
-	
+  
 	
 
 }
