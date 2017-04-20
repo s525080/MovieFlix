@@ -3,6 +3,7 @@ package io.EGEN.Movieflix.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import io.EGEN.Movieflix.entity.ImdbProfile;
 import io.EGEN.Movieflix.entity.MovieDetails;
@@ -14,9 +15,7 @@ public interface MoviesService {
 	
 	 public List<Movies> findAll();
 	 //find only  movies
-	 public List<Movies> findOnlyMovies();
-	 //find only  tv series
-	 public List<Movies> findOnlyTvSeries();
+	 public List<Movies> findbyType(String type);
 	 //find only top rated movies
 	 public List<Movies> findTopRatedMovies();
 	 //find only top rated tv series
@@ -34,7 +33,8 @@ public interface MoviesService {
 	 
 	 public String updateComment(Movies movie,String comment,User user);
 	 //Search a movie by title
-	 public Movies findOne(String title);
+	 public Movies findOne(String id);
+	 public Movies search(String title);
 	 //post a movie 
 	 public Movies createMovie(Movies movie);
 	 //update movie details

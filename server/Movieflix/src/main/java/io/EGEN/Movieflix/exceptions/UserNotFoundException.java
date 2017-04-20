@@ -1,5 +1,5 @@
 package io.EGEN.Movieflix.exceptions;
 
-public class UserNotFoundException {
+public class UserNotFoundException extends Throwable {
 
 }

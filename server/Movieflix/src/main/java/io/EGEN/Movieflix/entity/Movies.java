@@ -19,7 +19,15 @@ import org.hibernate.annotations.GenericGenerator;
 @Table
 @NamedQueries({
 		@NamedQuery(name="Movies.findAll",query="SELECT m from Movies m "),
-		@NamedQuery(name="Movies.findOnlyMovies",query="SELECT m from Movies m where m.type=:pmovies")
+		@NamedQuery(name="Movies.findByType",query="SELECT m from Movies m where m.type=:ptype"),
+		@NamedQuery(name="Movies.findTopRatedMovies",query="SELECT m FROM Movies AS m WHERE m.type=:ptype ORDER BY  m.imdbProfile.imdbRating DESC"),
+		@NamedQuery(name="Movies.findTopRatedTvSeries",query="SELECT m FROM Movies AS m WHERE m.type=:ptype ORDER BY  m.imdbProfile.imdbRating DESC"),
+		@NamedQuery(name="Movies.sortByYear",query="SELECT m FROM Movies AS m  ORDER BY  m.year DESC"),
+		@NamedQuery(name="Movies.SortByImdbRatings",query="SELECT m FROM Movies AS m  ORDER BY  m.imdbProfile.imdbRating DESC"),
+		@NamedQuery(name="Movies.SortByImdbVotes",query="SELECT m FROM Movies AS m  ORDER BY  m.imdbProfile.imdbVotes DESC")
+		
+		
+
 })
 public class Movies {
 	

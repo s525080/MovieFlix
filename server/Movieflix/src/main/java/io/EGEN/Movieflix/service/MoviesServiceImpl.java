@@ -10,7 +10,9 @@ import io.EGEN.Movieflix.entity.ImdbProfile;
 import io.EGEN.Movieflix.entity.MovieDetails;
 import io.EGEN.Movieflix.entity.Movies;
 import io.EGEN.Movieflix.entity.User;
+import io.EGEN.Movieflix.exceptions.UserNotFoundException;
 import io.EGEN.Movieflix.repository.MoviesRepository;
+
 
 @Service
 public class MoviesServiceImpl implements MoviesService {
@@ -25,51 +27,46 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 
 	@Override
-	public List<Movies> findOnlyMovies() {
+	public List<Movies> findbyType(String type) {
 		// TODO Auto-generated method stub
-		return repository.findOnlyMovies();
+		return repository.findbyType(type);
 	}
 
-	@Override
-	public List<Movies> findOnlyTvSeries() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<Movies> findTopRatedMovies() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findTopRatedMovies();
 	}
 
 	@Override
 	public List<Movies> findTopRatedTvSeries() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findTopRatedTvSeries();
 	}
 
 	@Override
 	public List<Movies> moviesByYear() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.moviesByYear();
 	}
 
 	@Override
 	public List<Movies> moviesByGenre() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.moviesByGenre();
 	}
 
 	@Override
 	public List<Movies> imdbRatings() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.imdbRatings();
 	}
 
 	@Override
 	public List<Movies> imdbVotes() {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.imdbVotes();
 	}
 
 	@Override
@@ -85,9 +82,15 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 
 	@Override
-	public Movies findOne(String title) {
+	public Movies findOne(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.findOne(id);
+	}
+	
+	@Override
+	public Movies search(String title){
+		return repository.search(title);
+		
 	}
 
 	@Override
@@ -98,15 +101,29 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 
 	@Override
+	@Transactional
 	public Movies updateMovie(String id, Movies movie) {
 		// TODO Auto-generated method stub
-		return null;
+		 Movies existing = repository.findOne(id);
+			
+			if(existing == null){
+				//throw new UserNotFoundException();
+			}
+			
+		return repository.updateMovie(movie);
 	}
-
+   
 	@Override
+	@Transactional
 	public void deleteMovie(String id) {
 		// TODO Auto-generated method stub
-		
+		 Movies existing = repository.findOne(id);
+			
+			if(existing == null){
+				//throw new UserNotFoundException();
+			}
+			
+		repository.deleteMovie(existing);
 	}
 
 	

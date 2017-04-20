@@ -29,17 +29,12 @@ public class MoviesController {
 		return service.findAll();
 	}
 
-	@RequestMapping(method = RequestMethod.GET,path="/movies",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Movies> findOnlyMovies() {
+	@RequestMapping(method = RequestMethod.GET,path="/type/{type}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> findbyType(@PathVariable("type") String type) {
 		// TODO Auto-generated method stub
-		return service.findOnlyMovies();
+		return service.findbyType(type);
 	}
 
-	@RequestMapping(method=RequestMethod.GET,path="/tvseries",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Movies> findOnlyTvSeries() {
-		// TODO Auto-generated method stub
-		return service.findOnlyTvSeries();
-	}
 
 	@RequestMapping(method=RequestMethod.GET,path="/topmovies",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public List<Movies> findTopRatedMovies() {
@@ -89,10 +84,16 @@ public class MoviesController {
 		return service.updateComment(movie, comment, user);
 	}
 
-	@RequestMapping(method=RequestMethod.GET,path="/{title}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Movies findOne(@PathVariable("title") String title) {
+	@RequestMapping(method=RequestMethod.GET,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies findOne(@PathVariable("id") String id) {
 		// TODO Auto-generated method stub
-		return service.findOne(title);
+		return service.findOne(id);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,path="/{title}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies search(@PathVariable("title") String title) {
+		// TODO Auto-generated method stub
+		return service.search(title);
 	}
 
 	@RequestMapping(method=RequestMethod.POST,produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -101,14 +102,14 @@ public class MoviesController {
 		return service.createMovie(movie);
 	}
 
-	@RequestMapping(method=RequestMethod.POST,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Movies updateMovie(@PathVariable("id") String id, Movies movie) {
+	@RequestMapping(method=RequestMethod.PUT,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies updateMovie(@PathVariable("id") String id,@RequestBody Movies movie) {
 		// TODO Auto-generated method stub
 		return service.updateMovie(id, movie);
 	}
 
-	@RequestMapping(method=RequestMethod.POST,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public void deleteMovie(String id) {
+	@RequestMapping(method=RequestMethod.DELETE,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public void deleteMovie(@PathVariable("id") String id) {
 		// TODO Auto-generated method stub
 		service.deleteMovie(id);
 		

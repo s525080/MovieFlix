@@ -30,35 +30,36 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	}
 
 	@Override
-	public List<Movies> findOnlyMovies() {
+	public List<Movies> findbyType(String type) {
 		// TODO Auto-generated method stub
-		TypedQuery<Movies> query= em.createNamedQuery("Movies.findOnlyMovies", Movies.class);
-		query.setParameter("pmovies", "movies");
+		TypedQuery<Movies> query= em.createNamedQuery("Movies.findByType", Movies.class);
+		query.setParameter("ptype", type);
 		return query.getResultList();
 	}
 
-	@Override
-	public List<Movies> findOnlyTvSeries() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 
 
 	@Override
 	public List<Movies> findTopRatedMovies() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO Auto-generated method stubMovies.findTopRatedMovies
+		TypedQuery<Movies> query= em.createNamedQuery("Movies.findTopRatedMovies", Movies.class);
+		query.setParameter("ptype", "movie");
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Movies> findTopRatedTvSeries() {
 		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Movies> query= em.createNamedQuery("Movies.findTopRatedTvSeries", Movies.class);
+		query.setParameter("ptype", "series");
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Movies> moviesByYear() {
 		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Movies> query= em.createNamedQuery("Movies.sortByYear", Movies.class);
+		return query.getResultList();
 	}
 
 	@Override
@@ -70,13 +71,15 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	@Override
 	public List<Movies> imdbRatings() {
 		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Movies> query= em.createNamedQuery("Movies.SortByImdbRatings", Movies.class);
+		return query.getResultList();
 	}
 
 	@Override
 	public List<Movies> imdbVotes() {
 		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Movies> query= em.createNamedQuery("Movies.SortByImdbVotes", Movies.class);
+		return query.getResultList();
 	}
 
 	@Override
@@ -92,20 +95,28 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	}
 
 	@Override
-	public Movies findOne(String title) {
+	public Movies findOne(String id) {
+		// TODO Auto-generated method stub
+		
+		return em.find(Movies.class, id);
+	}
+
+	@Override
+	public Movies search(String title) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	@Override
 	@Transactional
 	public Movies createMovie(Movies movie) {
 		// TODO Auto-generated method stub
+		System.out.println(movie);
 		MovieDetails md= movie.getMovieDetails();
 		em.persist(md);
 		ImdbProfile imdb = movie.getImdbProfile();
 		em.persist(imdb);
 		UserRatings ur= movie.getUserRatings();
+		System.out.println(ur);
 		em.persist(ur);
 		List<UserComments> uc = movie.getUserComments();
 		for(UserComments u: uc){
@@ -116,15 +127,17 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	}
 
 	@Override
+	@Transactional
 	public Movies updateMovie(Movies movie) {
 		// TODO Auto-generated method stub
-		return null;
+		return em.merge(movie);
 	}
 
 	@Override
+	@Transactional
 	public void deleteMovie(Movies movie) {
 		// TODO Auto-generated method stub
-		
+		em.remove(movie);
 	}
 
 	
