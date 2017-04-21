@@ -54,10 +54,10 @@ public class MoviesController {
 		return service.moviesByYear();
 	}
 
-	@RequestMapping(method=RequestMethod.GET,path="/genre",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<Movies> moviesByGenre() {
+	@RequestMapping(method=RequestMethod.GET,path="/genre/{genre}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> moviesByGenre(@PathVariable("genre") String genre) {
 		// TODO Auto-generated method stub
-		return service.moviesByGenre();
+		return service.moviesByGenre(genre);
 	}
 
 	@RequestMapping(method=RequestMethod.GET,path="/imdbratings",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -72,17 +72,17 @@ public class MoviesController {
 		return service.imdbVotes();
 	}
 
-	
-	public double updateUserRating(Movies movie, double rating) {
+	@RequestMapping(method=RequestMethod.PUT,path="/rating/{rate}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies updateUserRating(@RequestBody Movies movie, @PathVariable("rate") double rating) {
 		// TODO Auto-generated method stub
 		return service.updateUserRating(movie, rating);
 	}
 
-	
-	public String updateComment(Movies movie, String comment, User user) {
-		// TODO Auto-generated method stub
-		return service.updateComment(movie, comment, user);
-	}
+//	@RequestMapping(method=RequestMethod.PUT,path="/comment/{comment}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+//	public Movies updateComment(Movies movie, String comment, User user) {
+//		// TODO Auto-generated method stub
+//		return service.updateComment(movie, comment, user);
+//	}
 
 	@RequestMapping(method=RequestMethod.GET,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Movies findOne(@PathVariable("id") String id) {
@@ -90,8 +90,8 @@ public class MoviesController {
 		return service.findOne(id);
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,path="/{title}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public Movies search(@PathVariable("title") String title) {
+	@RequestMapping(method=RequestMethod.GET,path="/title/{title}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> search(@PathVariable("title") String title) {
 		// TODO Auto-generated method stub
 		return service.search(title);
 	}

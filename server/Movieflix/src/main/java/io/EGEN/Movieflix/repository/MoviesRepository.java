@@ -22,18 +22,18 @@ public interface MoviesRepository {
 	 //sort movies by year
 	 public List<Movies> moviesByYear();
 	//sort movies by Genre
-	 public List<Movies> moviesByGenre();
+	 public List<Movies> moviesByGenre(String genre);
 	//sort movies by IMDB ratings
 	 public List<Movies> imdbRatings();
 	//sort movies by IMDB votes
 	 public List<Movies> imdbVotes();
 	//update rating when user rates a movie
-     public double updateUserRating(Movies movie,double rating);
+     public Movies updateUserRating(Movies movie);
      //update comment 
      public String updateComment(Movies movie,String comment,User user);
 	 //Search a movie by title
 	 public Movies findOne(String id);
-	 public Movies search(String title);
+	 public List<Movies> search(String title);
 	 //post a movie 
 	 public Movies createMovie(Movies movie);
 	 //update movie details

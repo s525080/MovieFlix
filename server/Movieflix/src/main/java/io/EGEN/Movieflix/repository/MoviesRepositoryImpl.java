@@ -63,9 +63,12 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	}
 
 	@Override
-	public List<Movies> moviesByGenre() {
+	public List<Movies> moviesByGenre(String genre) {
 		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Movies> query= em.createNamedQuery("Movies.sortByGenre", Movies.class);
+		query.setParameter("genre", genre);
+	
+		return query.getResultList();
 	}
 
 	@Override
@@ -83,9 +86,10 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	}
 
 	@Override
-	public double updateUserRating(Movies movie, double rating) {
+	@Transactional
+	public Movies updateUserRating(Movies movie) {
 		// TODO Auto-generated method stub
-		return 0;
+		return em.merge(movie);
 	}
 
 	@Override
@@ -102,9 +106,14 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	}
 
 	@Override
-	public Movies search(String title) {
+	public List<Movies> search(String title) {
+		
 		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Movies> query= em.createNamedQuery("Movies.searchByTitle", Movies.class);
+		query.setParameter("title", title);
+	
+		return query.getResultList();
+		
 	}
 	@Override
 	@Transactional
@@ -140,7 +149,5 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 		// TODO Auto-generated method stub
 		em.remove(movie);
 	}
-
-	
 
 }

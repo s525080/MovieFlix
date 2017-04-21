@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,8 +25,10 @@ import org.hibernate.annotations.GenericGenerator;
 		@NamedQuery(name="Movies.findTopRatedMovies",query="SELECT m FROM Movies AS m WHERE m.type=:ptype ORDER BY  m.imdbProfile.imdbRating DESC"),
 		@NamedQuery(name="Movies.findTopRatedTvSeries",query="SELECT m FROM Movies AS m WHERE m.type=:ptype ORDER BY  m.imdbProfile.imdbRating DESC"),
 		@NamedQuery(name="Movies.sortByYear",query="SELECT m FROM Movies AS m  ORDER BY  m.year DESC"),
+		@NamedQuery(name="Movies.sortByGenre",query="SELECT m FROM Movies AS m  where m.genre like CONCAT(:genre,'%')"),
 		@NamedQuery(name="Movies.SortByImdbRatings",query="SELECT m FROM Movies AS m  ORDER BY  m.imdbProfile.imdbRating DESC"),
-		@NamedQuery(name="Movies.SortByImdbVotes",query="SELECT m FROM Movies AS m  ORDER BY  m.imdbProfile.imdbVotes DESC")
+		@NamedQuery(name="Movies.SortByImdbVotes",query="SELECT m FROM Movies AS m  ORDER BY  m.imdbProfile.imdbVotes DESC"),
+		@NamedQuery(name="Movies.searchByTitle",query="SELECT m FROM Movies AS m  where m.title like CONCAT(:title,'%')")
 		
 		
 

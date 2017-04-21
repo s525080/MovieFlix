@@ -10,6 +10,7 @@ import io.EGEN.Movieflix.entity.ImdbProfile;
 import io.EGEN.Movieflix.entity.MovieDetails;
 import io.EGEN.Movieflix.entity.Movies;
 import io.EGEN.Movieflix.entity.User;
+import io.EGEN.Movieflix.entity.UserRatings;
 import io.EGEN.Movieflix.exceptions.UserNotFoundException;
 import io.EGEN.Movieflix.repository.MoviesRepository;
 
@@ -52,9 +53,9 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 
 	@Override
-	public List<Movies> moviesByGenre() {
+	public List<Movies> moviesByGenre(String genre) {
 		// TODO Auto-generated method stub
-		return repository.moviesByGenre();
+		return repository.moviesByGenre(genre);
 	}
 
 	@Override
@@ -70,9 +71,43 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 
 	@Override
-	public double updateUserRating(Movies movie, double rating) {
+	@Transactional
+	public Movies updateUserRating(Movies movie, double rating) {
 		// TODO Auto-generated method stub
-		return 0;
+		UserRatings ur = movie.getUserRatings();
+		double rate = ur.getAvgRating();
+		int noOfRatings = ur.getNoOfRatings();
+		int one = ur.getOneRating();
+		int two = ur.getTwoRating();
+		int three = ur.getThreeRating();
+		int four = ur.getFourRating();
+		int five = ur.getFiveRating();
+		
+		noOfRatings+=1;
+		ur.setNoOfRatings(noOfRatings);
+		if(rating == 5){
+			five+=1;
+			ur.setFiveRating(five);
+		}else if(rating == 4){
+			four+=1;
+			ur.setFourRating(four);
+		}else if(rating == 3){
+			three+=1;
+			ur.setThreeRating(three);
+		}else if(rating == 2){
+			two+=1;
+			ur.setTwoRating(two);
+		}else{
+			one+=1;
+			ur.setOneRating(one);
+		}
+		
+		rate = (5*five + 4*four + 3* three + 2*two + 1*one)/noOfRatings;
+		ur.setAvgRating(rate);
+		
+		movie.setUserRatings(ur);
+		
+		return repository.updateUserRating(movie);
 	}
 
 	@Override
@@ -88,7 +123,7 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 	
 	@Override
-	public Movies search(String title){
+	public List<Movies> search(String title){
 		return repository.search(title);
 		
 	}
