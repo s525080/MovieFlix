@@ -7,5 +7,8 @@ public interface UserRepository {
 	public User login(User user);
 	public User logout(User user);
 	public User signUp(User user);
+	public User update(User user);
+	public void delete(User user);
+	public User findUser(String id);
 
 }

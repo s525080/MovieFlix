@@ -3,6 +3,7 @@ package io.EGEN.Movieflix.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,13 +40,13 @@ public class Movies {
 	private int year;
 	private String genre;
 	private String type;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private MovieDetails movieDetails;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private ImdbProfile imdbProfile;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private UserRatings userRatings;
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
 	private List<UserComments> userComments;
 	public String getId() {
 		return id;

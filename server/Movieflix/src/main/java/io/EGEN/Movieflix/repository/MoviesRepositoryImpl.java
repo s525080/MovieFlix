@@ -110,18 +110,18 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	@Transactional
 	public Movies createMovie(Movies movie) {
 		// TODO Auto-generated method stub
-		System.out.println(movie);
-		MovieDetails md= movie.getMovieDetails();
-		em.persist(md);
-		ImdbProfile imdb = movie.getImdbProfile();
-		em.persist(imdb);
-		UserRatings ur= movie.getUserRatings();
-		System.out.println(ur);
-		em.persist(ur);
-		List<UserComments> uc = movie.getUserComments();
-		for(UserComments u: uc){
-		em.persist(u);
-		}
+//		System.out.println(movie);
+//		MovieDetails md= movie.getMovieDetails();
+//		em.persist(md);
+//		ImdbProfile imdb = movie.getImdbProfile();
+//		em.persist(imdb);
+//		UserRatings ur= movie.getUserRatings();
+//		System.out.println(ur);
+//		em.persist(ur);
+//		List<UserComments> uc = movie.getUserComments();
+//		for(UserComments u: uc){
+//		em.persist(u);
+//		}
 		em.persist(movie);
 		return movie;
 	}
@@ -130,6 +130,7 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	@Transactional
 	public Movies updateMovie(Movies movie) {
 		// TODO Auto-generated method stub
+
 		return em.merge(movie);
 	}
 

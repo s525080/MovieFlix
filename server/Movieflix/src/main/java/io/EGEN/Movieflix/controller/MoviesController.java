@@ -108,7 +108,7 @@ public class MoviesController {
 		return service.updateMovie(id, movie);
 	}
 
-	@RequestMapping(method=RequestMethod.DELETE,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(method=RequestMethod.DELETE,path="/{id}")
 	public void deleteMovie(@PathVariable("id") String id) {
 		// TODO Auto-generated method stub
 		service.deleteMovie(id);
