@@ -2,8 +2,10 @@ package io.EGEN.Movieflix.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.EGEN.Movieflix.entity.User;
 
@@ -14,9 +16,12 @@ public class UserRepositoryImpl implements UserRepository {
 	EntityManager em;
 
 	@Override
-	public User login(User user) {
+	@Transactional
+	public User login(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
+		query.setParameter("pemail", email);
+		return query.getSingleResult();
 	}
 
 	@Override
@@ -26,6 +31,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
+	@Transactional
 	public User signUp(User user) {
 		// TODO Auto-generated method stub
 		em.persist(user);
@@ -33,6 +39,7 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
+	@Transactional
 	public User update(User user) {
 		// TODO Auto-generated method stub
 		em.merge(user);
@@ -40,9 +47,11 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Override
+	@Transactional
 	public void delete(User user) {
 		// TODO Auto-generated method stub
 		//return null;
+		em.remove(user);
 		
 	}
 

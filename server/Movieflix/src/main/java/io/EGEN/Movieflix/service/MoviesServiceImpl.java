@@ -11,7 +11,7 @@ import io.EGEN.Movieflix.entity.MovieDetails;
 import io.EGEN.Movieflix.entity.Movies;
 import io.EGEN.Movieflix.entity.User;
 import io.EGEN.Movieflix.entity.UserRatings;
-import io.EGEN.Movieflix.exceptions.UserNotFoundException;
+import io.EGEN.Movieflix.exceptions.NotFoundException;
 import io.EGEN.Movieflix.repository.MoviesRepository;
 
 
@@ -111,9 +111,10 @@ public class MoviesServiceImpl implements MoviesService {
 	}
 
 	@Override
-	public String updateComment(Movies movie, String comment, User user) {
+	@Transactional
+	public Movies updateComment(String id,Movies movie) {
 		// TODO Auto-generated method stub
-		return null;
+		return repository.updateComment(movie);
 	}
 
 	@Override
@@ -142,7 +143,7 @@ public class MoviesServiceImpl implements MoviesService {
 		 Movies existing = repository.findOne(id);
 			
 			if(existing == null){
-				//throw new UserNotFoundException();
+				throw new NotFoundException("The movie "+movie.getTitle()+" is not found");
 			}
 			
 		return repository.updateMovie(movie);
@@ -155,7 +156,8 @@ public class MoviesServiceImpl implements MoviesService {
 		 Movies existing = repository.findOne(id);
 			
 			if(existing == null){
-				//throw new UserNotFoundException();
+				throw new NotFoundException("The movie you are trying to delete is not found");
+				
 			}
 			
 		repository.deleteMovie(existing);

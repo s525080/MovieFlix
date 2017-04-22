@@ -30,7 +30,7 @@ public interface MoviesRepository {
 	//update rating when user rates a movie
      public Movies updateUserRating(Movies movie);
      //update comment 
-     public String updateComment(Movies movie,String comment,User user);
+     public Movies updateComment(Movies movie);
 	 //Search a movie by title
 	 public Movies findOne(String id);
 	 public List<Movies> search(String title);

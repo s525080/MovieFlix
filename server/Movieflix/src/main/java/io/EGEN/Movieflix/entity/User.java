@@ -4,12 +4,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table
+@NamedQueries({
+		@NamedQuery(name="User.findByEmail",query="SELECT u from User u where u.email =:pemail")
+})
 public class User {
 	
 	@Id
@@ -22,6 +29,7 @@ public class User {
 	private String email;
 	private String password;
 	private String phone;
+	@JsonProperty
 	private boolean isAdmin;
 	
 	public String getId() {
@@ -60,12 +68,7 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email

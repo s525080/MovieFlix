@@ -78,11 +78,12 @@ public class MoviesController {
 		return service.updateUserRating(movie, rating);
 	}
 
-//	@RequestMapping(method=RequestMethod.PUT,path="/comment/{comment}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
-//	public Movies updateComment(Movies movie, String comment, User user) {
-//		// TODO Auto-generated method stub
-//		return service.updateComment(movie, comment, user);
-//	}
+	//New comment should be added in the Angularjs side and send the updated Movie object to update
+	@RequestMapping(method=RequestMethod.PUT,path="/comment/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies updateComment(@PathVariable("id") String id,@RequestBody Movies movie) {
+		// TODO Auto-generated method stub
+		return service.updateComment(id,movie);
+	}
 
 	@RequestMapping(method=RequestMethod.GET,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Movies findOne(@PathVariable("id") String id) {

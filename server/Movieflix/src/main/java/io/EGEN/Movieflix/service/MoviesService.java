@@ -31,7 +31,7 @@ public interface MoviesService {
 	 //update rating when user rates a movie
 	 public Movies updateUserRating(Movies movie,double rating);
 	 
-	 public String updateComment(Movies movie,String comment,User user);
+	 public Movies updateComment(String id,Movies movie);
 	 //Search a movie by title
 	 public Movies findOne(String id);
 	 public List<Movies> search(String title);

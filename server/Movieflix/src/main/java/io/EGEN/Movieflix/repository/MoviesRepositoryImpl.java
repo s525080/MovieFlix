@@ -93,9 +93,10 @@ public class MoviesRepositoryImpl implements MoviesRepository {
 	}
 
 	@Override
-	public String updateComment(Movies movie, String comment, User user) {
+	@Transactional
+	public Movies updateComment(Movies movie) {
 		// TODO Auto-generated method stub
-		return null;
+		return em.merge(movie);
 	}
 
 	@Override

@@ -17,9 +17,9 @@ public class UserController {
 	@Autowired
 	UserService service;
 	
-	
-	public User login(User user){
-		return service.login(user);
+	@RequestMapping(method=RequestMethod.POST,path="/login",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public User login(@RequestBody String email){
+		return service.login(email);
 	}
 	public User logout(User user){
 		return service.logout(user);
@@ -30,12 +30,12 @@ public class UserController {
 		return service.signUp(user);
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT,path="/id",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(method=RequestMethod.PUT,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public User update(@PathVariable("id") String id,@RequestBody User user){
 		return service.update(id, user);
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE,path="/id")
+	@RequestMapping(method=RequestMethod.DELETE,path="/{id}")
 	public void delete(@PathVariable("id") String id){
 		service.delete(id);
 	}

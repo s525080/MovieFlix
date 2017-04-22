@@ -50,6 +50,7 @@ public class Movies {
 	@OneToOne(cascade=CascadeType.ALL)
 	private UserRatings userRatings;
 	@OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	@ElementCollection
 	private List<UserComments> userComments;
 	public String getId() {
 		return id;
