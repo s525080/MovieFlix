@@ -9,12 +9,9 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.EGEN.Movieflix.entity.ImdbProfile;
-import io.EGEN.Movieflix.entity.MovieDetails;
+
 import io.EGEN.Movieflix.entity.Movies;
-import io.EGEN.Movieflix.entity.User;
-import io.EGEN.Movieflix.entity.UserComments;
-import io.EGEN.Movieflix.entity.UserRatings;
+
 
 @Repository
 public class MoviesRepositoryImpl implements MoviesRepository {

@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.EGEN.Movieflix.entity.MinimalProfile;
 import io.EGEN.Movieflix.entity.User;
-import io.EGEN.Movieflix.exceptions.AlreadyExistsException;
-import io.EGEN.Movieflix.exceptions.NotFoundException;
+import io.EGEN.Movieflix.exceptions.UserAlreadyExistsException;
+import io.EGEN.Movieflix.exceptions.UserNotFoundException;
 import io.EGEN.Movieflix.repository.UserRepository;
 
 @Service
@@ -17,13 +18,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
-	public User login(String email) {
+	public User login(MinimalProfile login) {
 		// TODO Auto-generated method stub
-//		User existing = repository.findUser(user);
-//		if(existing == null){
-//			throw new NotFoundException("User not found");
-//		}
-		return repository.login(email);
+		User existing = repository.findEmail(login.getUsername());
+		if(existing == null){
+			throw new UserNotFoundException("User not found");
+		}
+
+		return repository.login(existing,login);
 	}
 
 	@Override
@@ -36,9 +38,9 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User signUp(User user) {
 		// TODO Auto-generated method stub
-		User existing = repository.findUser(user.getEmail());
+		User existing = repository.findEmail(user.getEmail());
 		if(existing != null){
-			throw new AlreadyExistsException("User already exists");
+			throw new UserAlreadyExistsException("User already exists");
 		}
 		
 		return repository.signUp(user);
@@ -50,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		User existing = repository.findUser(id);
 		if(existing == null){
-			throw new NotFoundException("User not found");
+			throw new UserNotFoundException("User not found");
 		}
 		return repository.update(user);
 	}
@@ -62,7 +64,7 @@ public class UserServiceImpl implements UserService {
 		//return null;
 		User existing = repository.findUser(id);
 		if(existing == null){
-			throw new NotFoundException("User not found");
+			throw new UserNotFoundException("User not found");
 			
 		}
 		repository.delete(existing);

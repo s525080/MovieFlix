@@ -1,13 +1,18 @@
 package io.EGEN.Movieflix.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import io.EGEN.Movieflix.entity.MinimalProfile;
 import io.EGEN.Movieflix.entity.User;
+import io.EGEN.Movieflix.exceptions.UserNotFoundException;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -17,11 +22,15 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	@Transactional
-	public User login(String email) {
+	public User login(User user,MinimalProfile login) {
 		// TODO Auto-generated method stub
-		TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
-		query.setParameter("pemail", email);
-		return query.getSingleResult();
+		String actualPassword = user.getLogin().getPassword();
+		if(actualPassword.equals(login.getPassword()))
+		{
+		return user;
+		}else {
+			throw new UserNotFoundException("Password is incorrect");
+		}
 	}
 
 	@Override
@@ -60,6 +69,21 @@ public class UserRepositoryImpl implements UserRepository {
 		// TODO Auto-generated method stub
 		
 		return em.find(User.class, id);
+	}
+
+	@Override
+	public User findEmail(String email) {
+		// TODO Auto-generated method stub
+		TypedQuery<User> query = em.createNamedQuery("User.findByEmail", User.class);
+		query.setParameter("pemail", email);
+
+		List<User> results = query.getResultList();
+	    if (results.isEmpty()){
+	    	return null;
+	    }
+	    else  {
+	    	return results.get(0);
+	    }
 	}
 
 }

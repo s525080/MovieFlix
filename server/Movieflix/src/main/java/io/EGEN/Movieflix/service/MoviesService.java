@@ -2,13 +2,9 @@ package io.EGEN.Movieflix.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import io.EGEN.Movieflix.entity.ImdbProfile;
-import io.EGEN.Movieflix.entity.MovieDetails;
 import io.EGEN.Movieflix.entity.Movies;
-import io.EGEN.Movieflix.entity.User;
+
 
 
 public interface MoviesService {

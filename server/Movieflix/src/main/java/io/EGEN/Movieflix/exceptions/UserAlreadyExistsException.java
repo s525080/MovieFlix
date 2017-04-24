@@ -5,18 +5,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 @ResponseStatus(code=HttpStatus.BAD_REQUEST)
-public class AlreadyExistsException extends RuntimeException {
+public class UserAlreadyExistsException extends RuntimeException {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7172389658487118089L;
 
-	public AlreadyExistsException(String msg){
+	public UserAlreadyExistsException(String msg){
 		super(msg);
 	}
 	
-	public AlreadyExistsException(String msg,Throwable cause){
+	public UserAlreadyExistsException(String msg,Throwable cause){
 		super(msg,cause);
 	}
 }

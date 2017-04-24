@@ -2,12 +2,8 @@ package io.EGEN.Movieflix.repository;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
-import io.EGEN.Movieflix.entity.ImdbProfile;
-import io.EGEN.Movieflix.entity.MovieDetails;
 import io.EGEN.Movieflix.entity.Movies;
-import io.EGEN.Movieflix.entity.User;
+
 
 
 public interface MoviesRepository {

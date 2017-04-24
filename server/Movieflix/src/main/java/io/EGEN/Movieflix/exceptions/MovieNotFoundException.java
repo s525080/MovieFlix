@@ -5,18 +5,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 
 	@ResponseStatus(code=HttpStatus.NOT_FOUND)
-	public class NotFoundException extends RuntimeException {
+	public class MovieNotFoundException extends RuntimeException {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 7172389658487118089L;
 
-		public NotFoundException(String msg){
+		public MovieNotFoundException(String msg){
 			super(msg);
 		}
 		
-		public NotFoundException(String msg,Throwable cause){
+		public MovieNotFoundException(String msg,Throwable cause){
 			super(msg,cause);
 		}
 	}

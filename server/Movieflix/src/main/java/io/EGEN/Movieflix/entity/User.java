@@ -1,11 +1,13 @@
 package io.EGEN.Movieflix.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -27,10 +29,12 @@ public class User {
 	private String lastname;
 	@Column(unique=true)
 	private String email;
-	private String password;
+	@OneToOne(cascade=CascadeType.ALL)
+	private LoginDetails login;
 	private String phone;
 	@JsonProperty
 	private boolean isAdmin;
+	
 	
 	public String getId() {
 		return id;
@@ -56,11 +60,12 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getPassword() {
-		return password;
+	
+	public LoginDetails getLogin() {
+		return login;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setLogin(LoginDetails login) {
+		this.login = login;
 	}
 	public String getPhone() {
 		return phone;
@@ -68,12 +73,13 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", password=" + password + ", phone=" + phone + ", isAdmin=" + isAdmin + "]";
+				+ ", login=" + login + ", phone=" + phone + ", isAdmin=" + isAdmin + "]";
 	}
+
+	
 	
 	
 	

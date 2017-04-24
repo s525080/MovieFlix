@@ -6,12 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import io.EGEN.Movieflix.entity.ImdbProfile;
-import io.EGEN.Movieflix.entity.MovieDetails;
 import io.EGEN.Movieflix.entity.Movies;
-import io.EGEN.Movieflix.entity.User;
 import io.EGEN.Movieflix.entity.UserRatings;
-import io.EGEN.Movieflix.exceptions.NotFoundException;
+import io.EGEN.Movieflix.exceptions.MovieNotFoundException;
 import io.EGEN.Movieflix.repository.MoviesRepository;
 
 
@@ -73,7 +70,7 @@ public class MoviesServiceImpl implements MoviesService {
 	@Override
 	@Transactional
 	public Movies updateUserRating(Movies movie, double rating) {
-		// TODO Auto-generated method stub
+		// logic to calculate user rating on scale of 5
 		UserRatings ur = movie.getUserRatings();
 		double rate = ur.getAvgRating();
 		int noOfRatings = ur.getNoOfRatings();
@@ -143,7 +140,7 @@ public class MoviesServiceImpl implements MoviesService {
 		 Movies existing = repository.findOne(id);
 			
 			if(existing == null){
-				throw new NotFoundException("The movie "+movie.getTitle()+" is not found");
+				throw new MovieNotFoundException("The movie "+movie.getTitle()+" is not found");
 			}
 			
 		return repository.updateMovie(movie);
@@ -156,7 +153,7 @@ public class MoviesServiceImpl implements MoviesService {
 		 Movies existing = repository.findOne(id);
 			
 			if(existing == null){
-				throw new NotFoundException("The movie you are trying to delete is not found");
+				throw new MovieNotFoundException("The movie you are trying to delete is not found");
 				
 			}
 			
