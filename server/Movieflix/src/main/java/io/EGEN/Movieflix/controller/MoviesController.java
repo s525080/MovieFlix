@@ -1,0 +1,118 @@
+package io.EGEN.Movieflix.controller;
+
+import java.util.List;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+
+import io.EGEN.Movieflix.entity.Movies;
+
+import io.EGEN.Movieflix.service.MoviesService;
+
+@RestController
+@RequestMapping(path="movies")
+public class MoviesController {
+	
+	@Autowired
+	MoviesService service;
+	//@RequestMapping(method=RequestMethod.GET,produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@RequestMapping(method = RequestMethod.GET,produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> findAll() {
+		// TODO Auto-generated method stub
+		return service.findAll();
+	}
+
+	@RequestMapping(method = RequestMethod.GET,path="/type/{type}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> findbyType(@PathVariable("type") String type) {
+		// TODO Auto-generated method stub
+		return service.findbyType(type);
+	}
+
+
+	@RequestMapping(method=RequestMethod.GET,path="/topmovies",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> findTopRatedMovies() {
+		// TODO Auto-generated method stub
+		return service.findTopRatedMovies();
+	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/toptv",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> findTopRatedTvSeries() {
+		// TODO Auto-generated method stub
+		return service.findTopRatedTvSeries();
+	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/year",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> moviesByYear() {
+		// TODO Auto-generated method stub
+		return service.moviesByYear();
+	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/genre/{genre}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> moviesByGenre(@PathVariable("genre") String genre) {
+		// TODO Auto-generated method stub
+		return service.moviesByGenre(genre);
+	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/imdbratings",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> imdbRatings() {
+		// TODO Auto-generated method stub
+		return service.imdbRatings();
+	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/imdbvotes",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> imdbVotes() {
+		// TODO Auto-generated method stub
+		return service.imdbVotes();
+	}
+
+	@RequestMapping(method=RequestMethod.PUT,path="/rating/{rate}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies updateUserRating(@RequestBody Movies movie, @PathVariable("rate") double rating) {
+		// TODO Auto-generated method stub
+		return service.updateUserRating(movie, rating);
+	}
+
+	//New comment should be added in the Angularjs side and send the updated Movie object to update
+	@RequestMapping(method=RequestMethod.PUT,path="/comment/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies updateComment(@PathVariable("id") String id,@RequestBody Movies movie) {
+		// TODO Auto-generated method stub
+		return service.updateComment(id,movie);
+	}
+
+	@RequestMapping(method=RequestMethod.GET,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies findOne(@PathVariable("id") String id) {
+		// TODO Auto-generated method stub
+		return service.findOne(id);
+	}
+	
+	@RequestMapping(method=RequestMethod.GET,path="/title/{title}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public List<Movies> search(@PathVariable("title") String title) {
+		// TODO Auto-generated method stub
+		return service.search(title);
+	}
+
+	@RequestMapping(method=RequestMethod.POST,produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies createMovie(@RequestBody Movies movie) {
+		// TODO Auto-generated method stub
+		return service.createMovie(movie);
+	}
+
+	@RequestMapping(method=RequestMethod.PUT,path="/{id}",produces=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE,consumes=org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public Movies updateMovie(@PathVariable("id") String id,@RequestBody Movies movie) {
+		// TODO Auto-generated method stub
+		return service.updateMovie(id, movie);
+	}
+
+	@RequestMapping(method=RequestMethod.DELETE,path="/{id}")
+	public void deleteMovie(@PathVariable("id") String id) {
+		// TODO Auto-generated method stub
+		service.deleteMovie(id);
+		
+	}
+
+}
